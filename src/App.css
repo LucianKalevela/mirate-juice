@@ -136,160 +136,132 @@ footer { background: var(--paper); padding: 70px 5.5vw 26px; } .footer-top { dis
 	.admin-body { padding-left: 4%; padding-right: 4%; }
 }
 
-
-/* ===== Mobile responsiveness: force full-width vertical stacking (replace previous block with this) ===== */
-
-/* Prevent sideways scrolling and long text breaking layouts (all sizes) */
-html, body { max-width: 100%; overflow-x: hidden; }
-img, video { max-width: 100%; }
-* { min-width: 0; }
-h1, h2, h3, p, a, strong, .footer-contact, .contact-directory a, .contact-directory strong,
-.feedback-item p { overflow-wrap: anywhere; }
-
-@supports (height: 100dvh) {
-	.site, .auth-page, .admin-shell { min-height: 100dvh; }
-}
-
-/* ---------- Tablets (801px - 1100px): keep 2-column, this range is not "mobile" ---------- */
-@media (min-width: 801px) and (max-width: 1100px) {
-	.hero-section { padding-left: 6%; padding-right: 6%; }
-	.hero-slides { left: 6%; }
-	.rating-grid { grid-template-columns: repeat(2, 1fr); }
-	.video-ad-section { grid-template-columns: 1fr; gap: 30px; }
-	.footer-top { gap: 20px; }
-	.menu-detail-card { grid-template-columns: 220px 1fr; gap: 28px; }
-	.admin-product { grid-template-columns: 80px 1fr 80px; }
-	.overview-grid { grid-template-columns: 1fr; }
-}
-
-/* ---------- Phones (up to 800px): EVERYTHING stacks to one full-width column ---------- */
 @media (max-width: 800px) {
-
-	/* Header / menu */
-	.site-header { position: absolute; top: 0; left: 0; right: 0; }
-	.site-header nav { max-height: calc(100dvh - 64px); overflow-y: auto; }
-	.hero-section { min-height: 100svh; min-height: 650px; }
-	.hero-copy h1, .special-page > h1, .story-hero h1 { overflow-wrap: normal; word-break: normal; hyphens: auto; }
-
-	/* Stop iOS auto-zoom on inputs; fix control sizing */
-	input, textarea, select { font-size: 16px; }
-	input[type="checkbox"], input[type="radio"] { min-height: 0; width: auto; }
-	input[type="range"] { min-height: 30px; }
-	input[type="file"] { min-height: 0; font-size: 12px; }
-
-	/* --- Force every multi-column grid/flex layout to a single full-width column --- */
-	.about-grid, .stats, .product-grid, .service-grid, .why-grid,
-	.gallery-grid, .team-grid, .story-hero, .video-ad-section,
-	.contact-directory, .footer-top, .footer-bottom,
-	.metric-grid, .overview-grid, .form-grid, .preset-grid,
-	.admin-product, .admin-product-fields, .event-editor,
-	.team-editor, .size-editor > div, .slide-field,
-	.menu-detail-card, .rating-grid {
-		display: grid;
-		grid-template-columns: 1fr !important;
-		gap: 18px;
+	.stats,
+	.gallery-grid,
+	.team-grid,
+	.metric-grid,
+	.overview-grid,
+	.form-grid,
+	.preset-grid {
+		grid-template-columns: 1fr;
 	}
 
-	/* Elements that used grid-column spans no longer need them at 1 column */
-	.gallery-0, .stats, .field.full, .range-field,
-	.admin-product-fields .field:nth-child(3),
-	.admin-product-fields .field:nth-child(4) {
+	.gallery-grid {
+		grid-template-rows: repeat(3, 220px);
+	}
+
+	.gallery-0 {
+		grid-column: auto;
+		grid-row: auto;
+	}
+
+	.admin-sidebar {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		overflow: visible;
+		padding: 12px 10px;
+	}
+
+	.admin-sidebar button {
+		width: 100%;
+	}
+
+	.dashboard-hero,
+	.admin-topbar,
+	.editor-heading {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.admin-actions {
+		width: 100%;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+	}
+
+	.admin-product,
+	.team-editor,
+	.event-editor {
+		grid-template-columns: 1fr;
+	}
+
+	.admin-product img {
+		width: 100%;
+		height: 180px;
+	}
+
+	.admin-product-fields,
+	.team-editor .field.full,
+	.team-editor .delete-button,
+	.event-editor .field:nth-child(2),
+	.event-editor .delete-button {
 		grid-column: auto;
 	}
 
-	/* Full-width, stacked cards/images inside those grids */
-	.about-image { width: 100%; max-height: 360px; aspect-ratio: auto; border-radius: 90px 90px 0 0; }
-	.stat { border-bottom: 1px solid var(--line) !important; padding: 14px 0; flex-direction: row; justify-content: space-between; align-items: center; }
-	.product-card { width: 100%; padding: 0; }
-	.product-photo { width: 100%; height: min(82vw, 340px); }
-	.gallery-item { width: 100%; height: 220px; }
-	.gallery-item img { position: static; width: 100%; height: 100%; }
-	.team-grid article { width: 100%; }
-	.team-grid article img { width: 100%; height: 220px; }
-	.menu-detail-card img { width: 100%; height: 220px; }
-	.video-ad-frame, .video-ad-frame video, .video-placeholder { width: 100%; min-height: 220px; }
-	.video-ad-copy p { max-width: 100%; }
-	.story-hero img { width: 100%; max-height: 330px; }
-
-	/* Product bottom row / meta: stack label above value instead of squeezing side by side */
-	.product-meta { flex-direction: column; align-items: flex-start; gap: 6px; padding: 17px 0 12px; }
-	.product-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
-
-	/* Section headings: label/title above action link, not side by side */
-	.section-heading { flex-direction: column; align-items: flex-start; gap: 16px; }
-
-	/* Contact / footer stacking */
-	.contact-inner { width: 100%; }
-	.contact-inner p { max-width: 100%; }
-	.contact-directory > div { padding-top: 12px; }
-	.footer-bottom .hidden-entry { grid-column: auto; text-align: left; }
-	.feedback-form { max-width: 100%; margin-top: 28px; }
-
-	/* Ratings */
-	.rating-card { width: 100%; padding: 16px; }
-	.water-graph { gap: 6px; }
-
-	/* Product detail popup: full-width, scrollable */
-	.product-detail-backdrop { align-items: flex-end; padding: 8px; overflow-y: auto; }
-	.product-detail { width: 100%; max-width: 100%; max-height: 94vh; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-	.product-detail > img { width: 100%; height: 190px; min-height: 0; }
-	.product-detail-copy { width: 100%; padding: 25px 18px 22px; }
-	.bottle-size-list div { grid-template-columns: 48px 1fr auto; min-height: 58px; }
-	.bottle-size-list img { width: 46px; height: 46px; }
-
-	/* Login page */
-	.auth-page { padding: 20px 16px; }
-	.auth-card { width: 100%; padding: 28px 20px; }
-	.auth-card .eyebrow { margin-top: 44px; }
-	.auth-card h1 { font-size: 38px; }
-	.back-link { top: 18px; left: 16px; }
-
-	/* ===== Admin: sidebar pinned as a horizontal bar at the TOP, everything else stacks below, full width ===== */
-	.admin-shell { display: block; width: 100%; }
-	.admin-sidebar {
-		display: flex; flex-direction: row; align-items: center; flex-wrap: nowrap;
-		gap: 4px; width: 100%; padding: 10px 12px; overflow-x: auto; overflow-y: hidden;
-		-webkit-overflow-scrolling: touch; position: sticky; top: 0; z-index: 10;
+	.size-editor > div {
+		grid-template-columns: 1fr;
 	}
-	.admin-logo { flex-shrink: 0; padding: 0 10px 0 4px; white-space: nowrap; }
-	.admin-logo small { display: none; }
-	.sidebar-label { display: none; }
-	.admin-sidebar button { flex-shrink: 0; white-space: nowrap; width: auto; display: inline-flex; }
-	.admin-sidebar button span { display: none; }
-	.admin-sidebar .view-site { position: static; margin: 0 0 0 auto; }
-	.admin-content { width: 100%; }
-
-	.admin-topbar { flex-direction: column; align-items: flex-start; height: auto; min-height: 88px; padding: 20px 16px; gap: 10px; }
-	.admin-topbar h1 { font-size: 22px; }
-	.admin-actions { width: 100%; justify-content: space-between; gap: 6px; }
-	.saved-note, .preview-button { display: none; }
-
-	.admin-body { width: 100%; padding: 22px 16px; }
-	.dashboard-hero { flex-direction: column; align-items: flex-start; gap: 15px; padding: 22px 18px; }
-	.dashboard-hero h2 { font-size: 26px; }
-
-	.metric-grid > div, .panel, .editor-view { width: 100%; padding: 18px; }
-	.panel-title, .editor-heading { flex-direction: column; align-items: flex-start; gap: 14px; }
-	.editor-heading h2 { font-size: 23px; }
-
-	.admin-product { width: 100%; }
-	.admin-product img { width: 100%; height: 180px; object-fit: cover; }
-	.admin-product-actions { flex-direction: row; align-items: center; justify-content: space-between; width: 100%; }
-
-	.size-editor { width: 100%; }
-	.size-editor > div { grid-template-columns: 1fr !important; }
-	.event-editor .delete-button { grid-column: auto; }
-
-	input, textarea, .button { min-height: 44px; }
-	textarea { min-height: 100px; }
-	.field input, .field textarea { width: 100%; min-width: 0; }
 }
 
-/* ---------- Small phones (up to 400px) ---------- */
-@media (max-width: 400px) {
-	.hero-copy h1 { font-size: clamp(38px, 13vw, 52px); }
-	.hero-actions .button { width: 100%; }
-	.product-detail-copy h2 { font-size: 34px; }
-	.contact-inner h2 { font-size: 38px; }
-	.brand { font-size: 15px; }
+@media (max-width: 800px) {
+	.menu-toggle {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 5px;
+		width: 42px;
+		height: 42px;
+		padding: 9px;
+		border: 1px solid var(--line);
+		border-radius: 6px;
+		background: var(--paper);
+		cursor: pointer;
+	}
+
+	.menu-toggle span {
+		display: block;
+		width: 20px;
+		height: 2px;
+		background: var(--ink);
+		transition: transform .2s ease, opacity .2s ease;
+	}
+
+	.menu-toggle[aria-expanded='true'] span:first-child {
+		transform: translateY(7px) rotate(45deg);
+	}
+
+	.menu-toggle[aria-expanded='true'] span:nth-child(2) {
+		opacity: 0;
+	}
+
+	.menu-toggle[aria-expanded='true'] span:last-child {
+		transform: translateY(-7px) rotate(-45deg);
+	}
+
+	.site-header nav.open {
+		display: flex;
+		padding: 8px 16px 14px;
+		border-top: 1px solid var(--line);
+		animation: mobile-menu-in .2s ease-out;
+	}
+
+	.site-header nav.open a {
+		min-height: 46px;
+		padding: 0 4px;
+		border-bottom: 1px solid var(--line);
+		font-size: 13px;
+	}
+
+	.site-header nav.open a:last-child {
+		border-bottom: 0;
+	}
 }
+
+@keyframes mobile-menu-in {
+	from { opacity: 0; transform: translateY(-8px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
